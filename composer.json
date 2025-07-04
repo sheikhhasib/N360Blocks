@@ -1,0 +1,27 @@
+{
+  "name": "newsn360/n360blocks",
+  "type": "wordpress-plugin",
+  "description": "A modern Gutenberg block plugin for embedding YouTube and Vimeo videos with custom player controls.",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Hasibul Hossain Santo Sheikh",
+      "email": "hasib2130@gmail.com",
+      "homepage": "https://newsn360.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "N360Blocks\\": "includes/"
+    },
+    "files": [
+      "includes/functions.php",
+      "includes/filters.php"
+    ]
+  },
+  "config": {
+    "preferred-install": "dist",
+    "autoloader-suffix": "N360Blocks"
+  },
+  "require": {}
+}

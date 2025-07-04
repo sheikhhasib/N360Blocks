@@ -1,0 +1,89 @@
+.N360Blocks {
+  width: 100%;
+  margin-bottom: 20px;
+
+  iframe {
+    width: 100%;
+    margin-bottom: -8px;
+    height: 100%;
+  }
+
+  .ratio-16-9 {
+    iframe {
+      aspect-ratio: 16 / 9;
+    }
+  }
+
+  .ratio-4-3 {
+    iframe {
+      aspect-ratio: 4 / 3;
+    }
+  }
+
+  .ratio-9-16 {
+    iframe {
+      aspect-ratio: 9 / 16;
+    }
+  }
+
+  .ratio-3-4 {
+    iframe {
+      aspect-ratio: 3 / 4;
+    }
+  }
+
+  .ratio-1-1 {
+    iframe {
+      aspect-ratio: 1 / 1;
+    }
+  }
+
+  &__container {
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+
+  &__section-video {
+    height: auto;
+    padding-bottom: 0;
+    position: absolute;
+    inset: 0;
+  }
+
+  &__frame {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__link {
+    display: block;
+    position: relative;
+    width: 100%;
+  }
+
+  &__play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+  &__loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+
+  &__thumbnail {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .N360Blocks-hide {
+    display: none;
+  }
+}

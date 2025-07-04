@@ -1,0 +1,118 @@
+// Video Player Component
+.N360Blocks {
+  position: relative;
+  background-color: black;
+  margin-bottom: 20px;
+
+  &__thumbnail {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  &__iframe {
+    width: 100%;
+    display: block;
+  }
+
+  // Play Button Overlay
+  &__play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    z-index: 10;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  // Controls Bar
+  &__controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    gap: 20px;
+    background: #2a2a2a;
+
+    &-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    &-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: white;
+      transition: color 0.2s ease;
+      max-height: 20px;
+
+      &:hover {
+        color: #ccc;
+      }
+
+      &--play {
+        font-size: 1.2em;
+      }
+    }
+  }
+
+  // Progress Bar
+  &__progress {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+
+    &-bar {
+      width: 100%;
+      height: 3px;
+      background: #444;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: height 0.2s ease;
+
+      &:hover {
+        height: 5px;
+      }
+
+      @media (min-width: 1024px) {
+        min-width: 300px;
+      }
+    }
+  }
+
+  // Volume Controls
+  &__volume {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &-slider {
+      width: 65px;
+      background: #444;
+      border-radius: 3px;
+      cursor: pointer;
+      max-height: 3px;
+    }
+  }
+
+  &__error {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 10px;
+    text-align: center;
+    background: rgba(255, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 5px;
+  }
+}

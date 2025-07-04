@@ -1,0 +1,44 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "vp/video",
+	"version": "1.0.1",
+	"title": "N360Blocks - Video",
+	"category": "vp-category",
+	"icon": "format-video",
+	"description": "Supports embedding YouTube and Vimeo videos.",
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+    "video_provider": {
+      "type": "string",
+			"default": "youtube"
+    },
+    "video_url": {
+      "type": "string"
+    },
+    "autoplay": {
+      "type": "boolean",
+			"default": false
+    },
+    "loop": {
+      "type": "boolean",
+			"default": false
+    },
+		"controls": {
+			"type": "boolean",
+			"default": true
+		},
+		"ratio" : {
+			"type": "string",
+			"default": "ratio-16-9"
+		}
+	},
+	"keywords": ["N360Blocks", "video", "VP"],
+	"textdomain": "vp",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+  "render": "file:./render.php"
+}
