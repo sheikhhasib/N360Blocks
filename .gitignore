@@ -1,0 +1,43 @@
+# @TODO writable paths
+wp-content/cache/
+wp-content/backups/
+wp-content/themes/sloth/node_modules/
+
+# Packages #
+############
+*.7z
+*.dmg
+*.gz
+*.bz2
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.tgz
+
+# Logs and databases #
+######################
+*.log
+*.sql
+
+# OS generated files #
+######################
+.DS_Store*
+ehthumbs.db
+Thumbs.db
+._*
+.idea/
+
+# Vim generated files #
+######################
+*.un~
+
+# SASS #
+##########
+.sass-cache
+license.txt
+nginx.conf
+pantheon.upstream.yml
+pantheon.yml
+node_modules

@@ -1,11 +1,13 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 // Add custom block category
 add_filter( 'block_categories_all', function( $categories ) {
   return array_merge(
     array(
       array(
         'slug'  => 'vp-category',
-        'title' => __( 'N360Blocks', 'N360Blocks' ),
+        'title' => __( 'N360Blocks', 'n360blocks' ),
         'icon'  => null,
       )
     ),
@@ -23,9 +25,9 @@ add_action( 'wp_enqueue_scripts', function () {
   // Register custom N360Blocks video script
   wp_register_script(
     'N360Blocks-video',
-    N360Blocks_URL . '/assets/N360Blocks-video.js',
+    N360BL_URL . '/assets/N360Blocks-video.js',
     [ 'jquery' ],
-    N360Blocks_VERSION,
+    N360BL_VERSION,
     true
   );
 
@@ -34,7 +36,7 @@ add_action( 'wp_enqueue_scripts', function () {
     'vimeo_embed_api',
     'https://player.vimeo.com/api/player.js',
     [],
-    N360Blocks_VERSION,
+    N360BL_VERSION,
     true
   );
 
@@ -42,7 +44,7 @@ add_action( 'wp_enqueue_scripts', function () {
     'yt_embed_api',
     'https://www.youtube.com/iframe_api',
     [],
-    N360Blocks_VERSION,
+    N360BL_VERSION,
     true
   );
 

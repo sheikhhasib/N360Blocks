@@ -3,7 +3,7 @@
  * Plugin Name:       N360Blocks
  * Plugin URI:        https://newsn360.com/n360blocks
  * Description:       A powerful WordPress plugin offering customizable video blocks, post grids, and scalable content layouts for Gutenberg.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Contributors:      hasib2130
  * Author:            Hasibul Hossain Santo Sheikh
  * Author URI:        https://newsn360.com
@@ -23,11 +23,6 @@ if ( ! defined( 'WPINC' ) ) {
 // Autoload dependencies.
 require_once __DIR__ . '/vendor/autoload.php';
 
-// Load plugin textdomain for translations.
-add_action( 'init', function () {
-    load_plugin_textdomain( 'N360Blocks', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
-});
-
 // Initialize plugin after plugins are loaded.
 add_action( 'plugins_loaded', array( 'N360Blocks', 'instance' ) );
 
@@ -41,7 +36,7 @@ final class N360Blocks {
      *
      * @var string
      */
-    const version = '1.0.0';
+    const version = '1.0.1';
 
     /**
      * N360Blocks constructor.
@@ -75,12 +70,12 @@ final class N360Blocks {
         $parent_theme = $theme_obj->get( 'Template' );
         $template_dir = ! empty( $parent_theme ) ? get_stylesheet_directory() : get_template_directory();
 
-        define( 'N360Blocks_THEME_PATH', $template_dir );
-        define( 'N360Blocks_VERSION', self::version );
-        define( 'N360Blocks_FILE', __FILE__ );
-        define( 'N360Blocks_PATH', __DIR__ );
-        define( 'N360Blocks_URL', plugins_url( '', __FILE__ ) );
-        define( 'N360Blocks_ASSETS', N360Blocks_URL . '/assets' );
+        define( 'N360BL_THEME_PATH', $template_dir );
+        define( 'N360BL_VERSION', self::version );
+        define( 'N360BL_FILE', __FILE__ );
+        define( 'N360BL_PATH', __DIR__ );
+        define( 'N360BL_URL', plugins_url( '', __FILE__ ) );
+        define( 'N360BL_ASSETS', N360BL_URL . '/assets' );
     }
 
     /**
@@ -88,16 +83,12 @@ final class N360Blocks {
      */
     public function init_plugin() {
         if ( is_admin() ) {
-            new N360Blocks\Admin();
+            new N360Blocks\N360BL_Admin();
         } else {
-            new N360Blocks\Frontend();
+            new N360Blocks\N360BL_Frontend();
         }
 
-        new N360Blocks\Blocks();
-
-        if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-            new N360Blocks\Ajax();
-        }
+        new N360Blocks\N360BL_Blocks();
     }
 
     /**

@@ -6,7 +6,7 @@
 
 namespace N360Blocks\Helper;
 
-class VpPosts {
+class N360BL_VpPosts {
   public static function youtubeExtractVideoAndPlaylistId($url) {
     $videoId = null;
     $playlistId = null;

@@ -7,5 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'e2c3fa61279f7e1bf13c6374586ab20e' => $baseDir . '/includes/functions.php',
-    '75ca967f2fae6f7917626b82edbf5a06' => $baseDir . '/includes/filters.php',
+    'c81f79c8e4f0de41652413f25647cc89' => $baseDir . '/includes/N360BL_filters.php',
 );

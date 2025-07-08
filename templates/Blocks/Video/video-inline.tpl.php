@@ -1,23 +1,24 @@
 <?php
+  use N360Blocks\Helper\N360BL_VpPosts;
 
-use N360Blocks\Helper\VpPosts;
+  if ( ! defined( 'ABSPATH' ) ) exit;
 
-$video_id          = '';
-$video_playlist_id = '';
-$video_thumbnail   = '';
+  $video_id          = '';
+  $video_playlist_id = '';
+  $video_thumbnail   = '';
 
-$video_url      = $attributes['video_url'] ?? '';
-$video_provider = $attributes['video_provider'] ?? '';
-$aspect_ratio   = $attributes['ratio'] ?? 'ratio-16-9';
-$template       = '';
+  $video_url      = $attributes['video_url'] ?? '';
+  $video_provider = $attributes['video_provider'] ?? '';
+  $aspect_ratio   = $attributes['ratio'] ?? 'ratio-16-9';
+  $template       = '';
 
-if ($video_provider === 'youtube' && !empty($video_url)) {
-  $video_data        = VpPosts::youtubeExtractVideoAndPlaylistId($video_url);
-  $video_id          = $video_data['videoId'] ?? '';
-  $video_playlist_id = $video_data['playlistId'] ?? '';
-} elseif ($video_provider === 'vimeo' && !empty($video_url)) {
-  $video_id = VpPosts::extractVimeoId($video_url);
-}
+  if ($video_provider === 'youtube' && !empty($video_url)) {
+    $video_data        = N360BL_VpPosts::youtubeExtractVideoAndPlaylistId($video_url);
+    $video_id          = $video_data['videoId'] ?? '';
+    $video_playlist_id = $video_data['playlistId'] ?? '';
+  } elseif ($video_provider === 'vimeo' && !empty($video_url)) {
+    $video_id = N360BL_VpPosts::extractVimeoId($video_url);
+  }
 ?>
 <div class="N360Blocks <?php echo esc_attr($attributes['className'] ?? ''); ?>">
   <div class="N360Blocks__container">

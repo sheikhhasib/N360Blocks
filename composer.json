@@ -16,7 +16,7 @@
     },
     "files": [
       "includes/functions.php",
-      "includes/filters.php"
+      "includes/N360BL_filters.php"
     ]
   },
   "config": {

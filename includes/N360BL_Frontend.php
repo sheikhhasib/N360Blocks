@@ -4,6 +4,6 @@
  */
 namespace N360Blocks;
 
-class Frontend {
+class N360BL_Frontend {
 
 }

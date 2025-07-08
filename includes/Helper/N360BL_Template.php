@@ -1,16 +1,16 @@
 <?php
 namespace N360Blocks\Helper;
 
-class N360BlocksTemplate {
+class N360BL_Template {
 
   protected $theme_path;
   protected $plugin_path;
   protected $version;
 
   public function __construct() {
-    $this->theme_path  = defined('N360Blocks_THEME_PATH') ? trailingslashit(N360Blocks_THEME_PATH) : get_stylesheet_directory() . '/';
-    $this->plugin_path = defined('N360Blocks_PATH') ? trailingslashit(N360Blocks_PATH) : plugin_dir_path(__FILE__);
-    $this->version     = defined('N360Blocks_VERSION') ? N360Blocks_VERSION : '1.0.0';
+    $this->theme_path  = defined('N360BL_THEME_PATH') ? trailingslashit(N360BL_THEME_PATH) : get_stylesheet_directory() . '/';
+    $this->plugin_path = defined('N360BL_PATH') ? trailingslashit(N360BL_PATH) : plugin_dir_path(__FILE__);
+    $this->version     = defined('N360BL_VERSION') ? N360BL_VERSION : '1.0.0';
   }
 
   public function get($template_name, $args = [], $template_path = '', $default_path = '', $print = true) {
@@ -18,17 +18,17 @@ class N360BlocksTemplate {
         'template', $template_name, $template_path, $default_path, $this->version,
     ]));
 
-    $template = wp_cache_get($cache_key, 'N360Blocks');
+    $template = wp_cache_get($cache_key, 'N360BL');
 
     if (!$template) {
         $template = $this->locate($template_name, $template_path, $default_path);
         $cache_path = $this->tokenize_path($template, $this->get_path_tokens());
-        wp_cache_set($cache_key, $cache_path, 'N360Blocks');
+        wp_cache_set($cache_key, $cache_path, 'N360BL');
     } else {
         $template = $this->untokenize_path($template, $this->get_path_tokens());
     }
 
-    $template = apply_filters('sn_get_template', $template, $template_name, $args, $template_path, $default_path, $print);
+    $template = apply_filters('n360bl_get_template', $template, $template_name, $args, $template_path, $default_path, $print);
 
     if (!file_exists($template)) {
         return '';
@@ -62,7 +62,7 @@ class N360BlocksTemplate {
 
     foreach ($paths as $path) {
       if (file_exists($path)) {
-        return apply_filters('pubportal_locate_template', $path, $template_name, $template_path);
+        return apply_filters('n360bl_locate_template', $path, $template_name, $template_path);
       }
     }
 
@@ -97,8 +97,8 @@ class N360BlocksTemplate {
       'WPMU_PLUGIN_DIR',
       'PLUGINDIR',
       'WP_THEME_DIR',
-      'N360Blocks_PATH',
-      'N360Blocks_THEME_PATH',
+      'N360BL_PATH',
+      'N360BL_THEME_PATH',
     ];
 
     $tokens = [];
@@ -108,6 +108,6 @@ class N360BlocksTemplate {
       }
     }
 
-    return apply_filters('N360Blocks_get_path_define_tokens', $tokens);
+    return apply_filters('n360bl_get_path_define_tokens', $tokens);
   }
 }

@@ -5,12 +5,12 @@
 
 namespace N360Blocks;
 
-use N360Blocks\Blocks\DynamicBlock;
+use N360Blocks\Blocks\N360BL_DynamicBlock;
 
-class Blocks {
+class N360BL_Blocks {
 
   public function __construct(){
-    new DynamicBlock();
+    new N360BL_DynamicBlock();
   }
 
 }

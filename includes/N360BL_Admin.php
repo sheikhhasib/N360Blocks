@@ -5,6 +5,6 @@
 
 namespace N360Blocks;
 
-class Admin {
+class N360BL_Admin {
 
 }

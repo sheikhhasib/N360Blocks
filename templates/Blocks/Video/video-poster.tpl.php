@@ -1,6 +1,8 @@
 
 <?php
- use N360Blocks\Helper\VpPosts;
+  use N360Blocks\Helper\N360BL_VpPosts;
+
+  if ( ! defined( 'ABSPATH' ) ) exit;
 
   $video_id          = '';
   $video_playlist_id = '';
@@ -12,13 +14,13 @@
   $template       = '';
 
   if ($video_provider === 'youtube' && !empty($video_url)) {
-    $video_data        = VpPosts::youtubeExtractVideoAndPlaylistId($video_url);
+    $video_data        = N360BL_VpPosts::youtubeExtractVideoAndPlaylistId($video_url);
     $video_id          = $video_data['videoId'] ?? '';
     $video_playlist_id = $video_data['playlistId'] ?? '';
-    $video_thumbnail   = VpPosts::getYouTubeThumbnail($video_id, 'maxresdefault');
+    $video_thumbnail   = N360BL_VpPosts::getYouTubeThumbnail($video_id, 'maxresdefault');
   } elseif ($video_provider === 'vimeo' && !empty($video_url)) {
-    $video_id = VpPosts::extractVimeoId($video_url);
-    $video_thumbnail = VpPosts::getVimeoThumbnail($video_id);
+    $video_id = N360BL_VpPosts::extractVimeoId($video_url);
+    $video_thumbnail = N360BL_VpPosts::getVimeoThumbnail($video_id);
   }
 
   $unique_id = uniqid('N360Blocks-');

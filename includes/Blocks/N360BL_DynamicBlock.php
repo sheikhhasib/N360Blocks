@@ -2,7 +2,7 @@
 
 namespace N360Blocks\Blocks;
 
-class DynamicBlock {
+class N360BL_DynamicBlock {
   private array $blocks = [
     'video',
   ];
@@ -19,7 +19,7 @@ class DynamicBlock {
   }
 
   private function register_block($name, $options = []): void {
-    register_block_type(N360Blocks_PATH . '/build/blocks/' . $name, $options);
+    register_block_type(N360BL_PATH . '/build/blocks/' . $name, $options);
   }
 
   public function allow_blocks($allowed_blocks) {
