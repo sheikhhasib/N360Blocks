@@ -21,10 +21,35 @@ Perfect for publishers, bloggers, and marketers looking for a fast, flexible, an
 
 ## 📦 Installation
 
+There are two ways to install N360Blocks:
+
+### From the WordPress Admin
+
+1. Go to **Plugins > Add New** in your WordPress dashboard.
+2. Search for "N360Blocks".
+3. Click **Install Now** and then **Activate**.
+
+### Manual Upload
+
+1. Download the latest version from [WordPress.org](https://wordpress.org/plugins/n360blocks/).
+2. In your WordPress dashboard, go to **Plugins > Add New > Upload Plugin**.
+3. Select the downloaded ZIP file and click **Install Now**.
+4. Activate the plugin via the **Plugins** menu.
+
+### Using FTP/SFTP
+
 1. Upload the `n360blocks` plugin folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin via the **Plugins** menu in WordPress.
-3. In the Gutenberg editor, search for the “N360 Video” block.
-4. Insert and customize the block as needed.
+
+---
+
+Once activated, in the Gutenberg editor, search for the "N360 Video" block. Insert and customize the block as needed.
+
+**Requirements:**
+- WordPress 5.8 or higher
+- PHP 7.0 or higher
+
+For more details and updates, visit the [N360Blocks plugin page](https://wordpress.org/plugins/n360blocks/).
 
 ---
 
