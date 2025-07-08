@@ -9,14 +9,8 @@
       let videoProvider = $(this).data('video-provider');
       let playlistId    = $(this).data('playlist-id');
 
-      console.log('Video ID:', videoId);
-      console.log('Video Provider:', videoProvider);
-      console.log('Playlist ID:', playlistId);
-      console.log('Block ID:', blockId);
-
-
-
       const inline_video = $(`#N360Blocks-video-inline-${blockId}-${videoId}`);
+
 
       if (inline_video.length) {
         inline_video.show();
@@ -25,6 +19,8 @@
           inline_video.empty();
 
           if (videoProvider === 'youtube') {
+            console.log('YouTube videoId:', videoId, 'playlistId:', playlistId);
+
             initializeYouTubePlayer({ videoId, playlistId }, inline_video, $(this));
           } else if (videoProvider === 'vimeo') {
             initializeVimeoPlayer(videoId, inline_video, $(this));
@@ -41,6 +37,7 @@
       console.error('YouTube IFrame API is not loaded.');
       return;
     }
+
     console.log('Initializing YouTube player with videoId:', videoId, 'and playlistId:', playlistId);
 
     if (videoContainer.hasClass('yt-initialized')) return;
@@ -53,13 +50,15 @@
       playsinline: 1
     };
 
+    // If playlistId is provided, set playlist options
     if (playlistId) {
       playerVars.listType = 'playlist';
       playerVars.list = playlistId;
     }
 
     const playerInstance = new YT.Player(videoContainer[0], {
-      videoId: playlistId ? null : videoId,
+      // Always pass videoId — YouTube needs it even for playlists
+      videoId: videoId,
       playerVars,
       events: {
         onReady: function (event) {
@@ -69,6 +68,7 @@
       }
     });
   }
+
 
   let vimeoPlayer = null;
   function initializeVimeoPlayer(videoId, videoContainer, currentLink) {

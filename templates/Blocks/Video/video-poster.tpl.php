@@ -26,11 +26,11 @@
   $unique_id = uniqid('N360Blocks-');
 
   $link_attributes = sprintf(
-    "data-block-id='%s' data-video-id='%s' data-video-provider='%s' data-playlist-id='%s'",
+    "data-block-id=%s data-video-id=%s data-video-provider=%s data-playlist-id=%s",
     $unique_id,
     $video_id,
     $video_provider,
-    (!empty($video_playlist_id) ? $video_playlist_id : ''),
+    !empty($video_playlist_id) ? $video_playlist_id : '',
   );
 ?>
 <div class="N360Blocks <?php echo esc_attr($attributes['className']); ?>">

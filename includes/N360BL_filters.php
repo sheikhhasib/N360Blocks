@@ -24,8 +24,8 @@ add_filter( 'should_load_remote_block_patterns', '__return_false' );
 add_action( 'wp_enqueue_scripts', function () {
   // Register custom N360Blocks video script
   wp_register_script(
-    'N360Blocks-video',
-    N360BL_URL . '/assets/N360Blocks-video.js',
+    'n360-video',
+    N360BL_URL . '/assets/n360-video.js',
     [ 'jquery' ],
     N360BL_VERSION,
     true
@@ -49,7 +49,7 @@ add_action( 'wp_enqueue_scripts', function () {
   );
 
   // Enqueue scripts
-  wp_enqueue_script('N360Blocks-video');
+  wp_enqueue_script('n360-video');
   wp_enqueue_script('vimeo_embed_api');
   wp_enqueue_script('yt_embed_api');
 } );

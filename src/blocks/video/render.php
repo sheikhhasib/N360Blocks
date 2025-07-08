@@ -7,9 +7,9 @@
   }
 
   $template_loader = new N360BL_Template();
-  if(empty($attributes['controls']) || !empty($attributes['autoplay']) || !empty($attributes['loop'])) {
+  if(empty($attributes['lazy_load_video']) || !empty($attributes['autoplay']) || !empty($attributes['loop'])) {
     return $template_loader->get('Blocks/Video/video-inline.tpl.php', ['attributes' => $attributes]);
   } else {
-    return $template_loader->get('Blocks/Video/video-inline.tpl.php', ['attributes' => $attributes]);
+    return $template_loader->get('Blocks/Video/video-poster.tpl.php', ['attributes' => $attributes]);
   }
 ?>
