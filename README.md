@@ -91,6 +91,14 @@ Developed by [Hasibul Hossain Santo Sheikh](https://newsn360.com)
 
 ---
 
+## 👥 Contributors
+
+Thanks to the following people who have contributed to this project:
+
+- [@hasib2130](https://github.com/sheikhhasib) - Creator & maintainer
+- [@grohon](https://github.com/grohon)
+- [@ahmedisti](https://github.com/ahmedisti)
+
 ## 🛠️ Support & Feedback
 
 For bug reports, feature suggestions, or contributions:
