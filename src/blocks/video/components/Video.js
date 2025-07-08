@@ -47,7 +47,7 @@ const Video = ({data, setAttributes}) => {
   }, [data.video_url, videoProvider]);
 
   return (
-  <div class="vidpress">
+  <div class="N360Blocks__video">
     {
       thumbnail && <>
         <img className="N360Blocks__thumbnail" src={thumbnail} alt="Video Thumbnail" />
@@ -94,7 +94,7 @@ const Video = ({data, setAttributes}) => {
 
     }
     {
-      videoProvider != 'youtube' && videoProvider != 'vimeo' && <div class="vidpress__error">Unsupported video URL</div>
+      videoProvider != 'youtube' && videoProvider != 'vimeo' && <div class="N360Blocks__error">Unsupported video URL</div>
     }
   </div>
   );

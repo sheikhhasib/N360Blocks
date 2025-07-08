@@ -9,7 +9,8 @@ class N360BL_DynamicBlock {
 
   public function __construct() {
     add_action('init', [$this, 'blocks_init']);
-    add_filter('vp_allowed_block', [$this, 'allow_blocks'], 99, 1);
+    add_filter('vp_allowed_block', [$this, 'allow_blocks']);
+    add_filter('enqueue_block_assets', [$this, 'vp_enqueue_block_assets']);
   }
 
   public function blocks_init() {
@@ -30,4 +31,7 @@ class N360BL_DynamicBlock {
     return array_merge($blocks, $allowed_blocks);
   }
 
+  public function vp_enqueue_block_assets() {
+    wp_enqueue_style('dashicons');
+  }
 }

@@ -99,6 +99,8 @@ Thanks to the following people who have contributed to this project:
 - [@grohon](https://github.com/grohon)
 - [@ahmedisti](https://github.com/ahmedisti)
 
+---
+
 ## 🛠️ Support & Feedback
 
 For bug reports, feature suggestions, or contributions:

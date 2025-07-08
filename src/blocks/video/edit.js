@@ -1,19 +1,32 @@
 import { __ } from "@wordpress/i18n";
 import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
-import { PanelBody, TextControl, ToggleControl } from "@wordpress/components";
+import {
+  PanelBody,
+  TextControl,
+  ToggleControl,
+  SelectControl,
+} from "@wordpress/components";
 import Video from "./components/Video";
 import N360BlocksRadioGroup from "../../components/N360BlocksRadioGroup";
 
 import "./editor.scss";
+import "./style.scss";
 
-export default function Edit({ attributes, setAttributes }) {
-  const { video_provider, video_url, autoplay, loop, controls, ratio } = attributes;
-  const blockProps = useBlockProps({ className: 'N360Blocks' });
+export default function Edit({ attributes, setAttributes, clientId }) {
+  const {
+    video_provider,
+    video_url,
+    autoplay,
+    loop,
+    controls,
+    ratio,
+    block_id,
+  } = attributes;
+  const blockProps = useBlockProps({ className: "N360Blocks" });
 
-  const videoProviders = {
-    youtube: 'YouTube',
-    vimeo: 'Vimeo',
-  };
+  if (block_id !== clientId) {
+    setAttributes({ block_id: clientId });
+  }
 
   const allRatios = {
     "ratio-16-9": "16:9",
@@ -62,7 +75,7 @@ export default function Edit({ attributes, setAttributes }) {
 
       <section {...blockProps}>
         <div className="w-video-block">
-          { <Video data={attributes} setAttributes={setAttributes} /> }
+          {<Video data={attributes} setAttributes={setAttributes} />}
         </div>
       </section>
     </>

@@ -1,31 +1,45 @@
 <?php
-  use N360Blocks\Helper\N360BL_VpPosts;
 
-  if ( ! defined( 'ABSPATH' ) ) exit;
+use N360Blocks\Helper\N360BL_VpPosts;
 
-  $video_id          = '';
-  $video_playlist_id = '';
-  $video_thumbnail   = '';
+if (! defined('ABSPATH')) exit;
 
-  $video_url      = $attributes['video_url'] ?? '';
-  $video_provider = $attributes['video_provider'] ?? '';
-  $aspect_ratio   = $attributes['ratio'] ?? 'ratio-16-9';
-  $template       = '';
+$id = 'n360blocks-video-' . ($attributes['block_id'] ?? uniqid());
 
-  if ($video_provider === 'youtube' && !empty($video_url)) {
-    $video_data        = N360BL_VpPosts::youtubeExtractVideoAndPlaylistId($video_url);
-    $video_id          = $video_data['videoId'] ?? '';
-    $video_playlist_id = $video_data['playlistId'] ?? '';
-  } elseif ($video_provider === 'vimeo' && !empty($video_url)) {
-    $video_id = N360BL_VpPosts::extractVimeoId($video_url);
-  }
+if (!empty($block['anchor'])) {
+  $id = $block['anchor'];
+}
+
+$video_id          = '';
+$video_playlist_id = '';
+$video_thumbnail   = '';
+
+$video_url      = $attributes['video_url'] ?? '';
+$video_provider = $attributes['video_provider'] ?? '';
+$aspect_ratio   = $attributes['ratio'] ?? 'ratio-16-9';
+$template       = '';
+
+if ($video_provider === 'youtube' && !empty($video_url)) {
+  $video_data        = N360BL_VpPosts::youtubeExtractVideoAndPlaylistId($video_url);
+  $video_id          = $video_data['videoId'] ?? '';
+  $video_playlist_id = $video_data['playlistId'] ?? '';
+} elseif ($video_provider === 'vimeo' && !empty($video_url)) {
+  $video_id = N360BL_VpPosts::extractVimeoId($video_url);
+}
+
+$block_class = 'N360Blocks n360blocks-video n360blocks-video__inline ';
+if (!empty($attributes['className'])) {
+  $block_class .= ' ' . $attributes['className'];
+}
+
+$wrapper_attributes = get_block_wrapper_attributes(['class' => $block_class, 'id' => $id]);
 ?>
-<div class="N360Blocks <?php echo esc_attr($attributes['className'] ?? ''); ?>">
+<div <?php echo $wrapper_attributes; ?>>
   <div class="N360Blocks__container">
-    <div class="N360Blocks__frame <?php echo esc_attr($aspect_ratio); ?>">
+    <div class="N360Blocks__frame">
       <?php if (!empty($video_id) && !empty($video_provider)) : ?>
-        <div class="section--video video-item mb-8">
-          <div id="<?php echo esc_attr($video_id); ?>"></div>
+        <div class="section--video video-item <?php esc_attr_e("video-provider-".$video_provider . ' '. $aspect_ratio); ?>">
+          <div id="<?php esc_attr_e($video_id); ?>"></div>
 
           <?php switch ($video_provider):
             case 'youtube': ?>
@@ -74,7 +88,7 @@
                   }
                 }
               </script>
-              <?php break;
+            <?php break;
 
             case 'vimeo': ?>
               <script>
@@ -115,7 +129,7 @@
                   console.error('Vimeo player init error:', error);
                 });
               </script>
-              <?php break;
+          <?php break;
           endswitch; ?>
         </div>
       <?php endif; ?>
