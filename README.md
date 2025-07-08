@@ -43,7 +43,7 @@ There are two ways to install N360Blocks:
 
 ---
 
-Once activated, in the Gutenberg editor, search for the "N360 Video" block. Insert and customize the block as needed.
+Once activated, in the Gutenberg editor, search for the "N360Blocks - Video" block. Insert and customize the block as needed.
 
 **Requirements:**
 - WordPress 5.8 or higher
