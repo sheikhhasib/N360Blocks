@@ -22,7 +22,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
     ratio,
     block_id,
   } = attributes;
-  const blockProps = useBlockProps({ className: "N360Blocks" });
+  const blockProps = useBlockProps();
 
   if (block_id !== clientId) {
     setAttributes({ block_id: clientId });

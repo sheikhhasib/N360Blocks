@@ -27,10 +27,7 @@ if ($video_provider === 'youtube' && !empty($video_url)) {
   $video_id = N360BL_VpPosts::extractVimeoId($video_url);
 }
 
-$block_class = 'N360Blocks n360blocks-video n360blocks-video__inline ';
-if (!empty($attributes['className'])) {
-  $block_class .= ' ' . $attributes['className'];
-}
+$block_class = 'N360Blocks n360blocks-video n360blocks-video__inline';
 
 $wrapper_attributes = get_block_wrapper_attributes(['class' => $block_class, 'id' => $id]);
 ?>

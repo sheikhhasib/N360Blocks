@@ -8,7 +8,10 @@
   "icon": "format-video",
   "description": "Supports embedding YouTube and Vimeo videos.",
   "supports": {
-    "html": false
+    "html": false,
+    "color": {
+      "background": true
+    }
   },
   "attributes": {
     "block_id": {

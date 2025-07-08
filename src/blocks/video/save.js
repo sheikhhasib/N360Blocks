@@ -9,8 +9,6 @@ export default function save(attributes) {
   const blockProps = useBlockProps.save();
 
   return (
-    <>
-      <section {...blockProps} />
-    </>
+    <section {...blockProps} />
   );
 }

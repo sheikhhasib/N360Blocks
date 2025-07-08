@@ -50,7 +50,7 @@ const Video = ({data, setAttributes}) => {
   <div class="N360Blocks__video">
     {
       thumbnail && <>
-        <img className="N360Blocks__thumbnail" src={thumbnail} alt="Video Thumbnail" />
+        <img className={`N360Blocks__thumbnail ${data.ratio || ''}`} src={thumbnail} alt="Video Thumbnail" />
 
         <div className="N360Blocks__controls">
           <div className="N360Blocks__controls-group">
