@@ -117,6 +117,14 @@
   }
 }
 
+$ratios: (
+  16: 9,
+  4: 3,
+  1: 1,
+  9: 16,
+  3: 4
+);
+
 .N360Blocks__video {
   img {
     width: 100%;
@@ -126,23 +134,9 @@
     object-position: center;
   }
 
-  .ratio-16-9 {
-    aspect-ratio: 16 / 9;
-  }
-
-  .ratio-4-3 {
-    aspect-ratio: 4 / 3;
-  }
-
-  .ratio-9-16 {
-    aspect-ratio: 9 / 16;
-  }
-
-  .ratio-3-4 {
-    aspect-ratio: 3 / 4;
-  }
-
-  .ratio-1-1 {
-    aspect-ratio: 1 / 1;
+  @each $w, $h in $ratios {
+    .ratio-#{$w}-#{$h} {
+      aspect-ratio: #{$w} / #{$h};
+    }
   }
 }
