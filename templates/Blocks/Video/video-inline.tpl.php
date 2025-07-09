@@ -54,9 +54,6 @@ $wrapper_attributes = get_block_wrapper_attributes(['class' => $block_class, 'id
                       'mute': <?php echo $attributes['autoplay'] ? '1' : '0'; ?>,
                     };
 
-                    console.log("youtube playvars", playerVars);
-
-
                     window.YT_videos?.forEach(function(media_id) {
                       let container_id = media_id;
                       let player = new YT.Player(container_id, {
