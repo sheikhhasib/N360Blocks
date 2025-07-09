@@ -32,8 +32,12 @@
     $video_provider,
     !empty($video_playlist_id) ? $video_playlist_id : '',
   );
+
+  $block_class = 'N360Blocks n360blocks-video n360blocks-video__inline';
+
+  $wrapper_attributes = get_block_wrapper_attributes(['class' => $block_class, 'id' => $id]);
 ?>
-<div class="N360Blocks <?php echo esc_attr($attributes['className']); ?>">
+<div <?php echo $wrapper_attributes; ?>>
   <div class="N360Blocks__container">
     <div class="N360Blocks__frame <?php echo esc_html($aspect_ratio); ?>">
       <a href="#" class="N360Blocks__link" <?php echo esc_html($link_attributes); ?>>
