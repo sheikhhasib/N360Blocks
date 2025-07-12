@@ -23,7 +23,7 @@
     $video_thumbnail = N360BL_VpPosts::getVimeoThumbnail($video_id);
   }
 
-  $unique_id = uniqid('N360Blocks-');
+  $unique_id = $attributes['block_id'] ?? uniqid();
 
   $link_attributes = sprintf(
     "data-block-id=%s data-video-id=%s data-video-provider=%s data-playlist-id=%s",
