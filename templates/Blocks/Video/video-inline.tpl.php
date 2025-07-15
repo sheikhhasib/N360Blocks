@@ -17,7 +17,6 @@ $video_thumbnail   = '';
 $video_url      = $attributes['video_url'] ?? '';
 $video_provider = $attributes['video_provider'] ?? '';
 $aspect_ratio   = $attributes['ratio'] ?? 'ratio-16-9';
-$template       = '';
 
 if ($video_provider === 'youtube' && !empty($video_url)) {
   $video_data        = N360BL_VpPosts::youtubeExtractVideoAndPlaylistId($video_url);
@@ -27,63 +26,33 @@ if ($video_provider === 'youtube' && !empty($video_url)) {
   $video_id = N360BL_VpPosts::extractVimeoId($video_url);
 }
 
-$block_class = 'N360Blocks n360blocks-video n360blocks-video__inline';
+// Enqueue inline video script
+wp_enqueue_script('n360-video-inline');
 
+// Generate a unique container ID for this block instance
+$unique_container_id = $video_id . '-' . ($attributes['block_id'] ?? uniqid());
+
+$block_class = 'N360Blocks n360blocks-video n360blocks-video__inline';
 $wrapper_attributes = get_block_wrapper_attributes(['class' => $block_class, 'id' => $id]);
 ?>
 <div <?php echo $wrapper_attributes; ?>>
   <div class="N360Blocks__container">
     <div class="N360Blocks__frame">
       <?php if (!empty($video_id) && !empty($video_provider)) : ?>
-        <div class="section--video video-item <?php esc_attr_e("video-provider-".$video_provider . ' '. $aspect_ratio); ?>">
-          <div id="<?php esc_attr_e($video_id); ?>"></div>
+        <div class="section--video video-item <?php echo esc_attr("video-provider-".$video_provider . ' '. $aspect_ratio); ?>">
+          <div id="<?php echo esc_attr($unique_container_id . '-inline_' . $video_id); ?>"></div>
 
           <?php switch ($video_provider):
             case 'youtube': ?>
               <script>
-                var media_id = <?php echo json_encode($video_id); ?>;
-                (window.YT_videos = window.YT_videos || []).push(media_id);
-
-                if (typeof onYouTubeIframeAPIReady !== 'function') {
-                  function onYouTubeIframeAPIReady() {
-                    let playerVars = {
-                      'playsinline': 1,
-                      'autoplay': <?php echo $attributes['autoplay'] ? '1' : '0'; ?>,
-                      'loop': <?php echo $attributes['loop'] ? '1' : '0'; ?>,
-                      'controls': <?php echo $attributes['controls'] ? '1' : '0'; ?>,
-                      'mute': <?php echo $attributes['autoplay'] ? '1' : '0'; ?>,
-                    };
-
-                    console.log("youtube playvars", playerVars);
-
-
-                    window.YT_videos?.forEach(function(media_id) {
-                      let container_id = media_id;
-                      let player = new YT.Player(container_id, {
-                        videoId: media_id,
-                        playerVars: playerVars,
-                        events: {
-                          'onReady': onPlayerReady,
-                          'onStateChange': onPlayerStateChange
-                        }
-                      });
-                    });
-                  }
-                }
-
-                if (typeof onPlayerReady !== 'function') {
-                  function onPlayerReady(event) {
-                    // Optional: handle ready state
-                  }
-                }
-
-                if (typeof onPlayerStateChange !== 'function') {
-                  function onPlayerStateChange(event) {
-                    if (event.data === YT.PlayerState.PAUSED) {
-                      // Optional: handle pause state
-                    }
-                  }
-                }
+                (window.YT_videos = window.YT_videos || []).push({
+                  media_id: <?php echo json_encode($video_id); ?>,
+                  media_type: 'youtube',
+                  autoplay: <?php echo $attributes['autoplay'] ? 1 : 0; ?>,
+                  mute: <?php echo $attributes['autoplay'] ? 1 : 0; ?>,
+                  loop: <?php echo $attributes['loop'] ? 1 : 0; ?>,
+                  block_id: <?php echo json_encode($unique_container_id . '-inline'); ?>
+                });
               </script>
             <?php break;
 
@@ -104,7 +73,7 @@ $wrapper_attributes = get_block_wrapper_attributes(['class' => $block_class, 'id
                   })(startTime);
                 }).then(function() {
                   let media_id = '<?php echo esc_js($video_id); ?>';
-                  let container_id = media_id;
+                  let container_id = '<?php echo esc_js($unique_container_id . '-inline_' . $video_id); ?>';
                   let vimeoOptions = {
                     id: media_id,
                     autoplay: <?php echo $attributes['autoplay'] ? 'true' : 'false'; ?>,
@@ -114,7 +83,6 @@ $wrapper_attributes = get_block_wrapper_attributes(['class' => $block_class, 'id
                     background: false,
                     dnt: true
                   };
-                  console.log("vimeo playvars", vimeoOptions);
 
                   let vimeoPlayer = new Vimeo.Player(container_id, vimeoOptions);
                   (window.Vimeo_videos = window.Vimeo_videos || []).push(media_id);

@@ -31,6 +31,15 @@ add_action( 'wp_enqueue_scripts', function () {
     true
   );
 
+  // Register custom N360Blocks video inline script
+  wp_register_script(
+    'n360-video-inline',
+    N360BL_URL . '/assets/n360-video-inline.js',
+    [ 'jquery' ],
+    N360BL_VERSION,
+    true
+  );
+
   // Register external APIs
   wp_register_script(
     'vimeo_embed_api',

@@ -19,8 +19,6 @@
           inline_video.empty();
 
           if (videoProvider === 'youtube') {
-            console.log('YouTube videoId:', videoId, 'playlistId:', playlistId);
-
             initializeYouTubePlayer({ videoId, playlistId }, inline_video, $(this));
           } else if (videoProvider === 'vimeo') {
             initializeVimeoPlayer(videoId, inline_video, $(this));

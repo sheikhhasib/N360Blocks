@@ -48,6 +48,11 @@
   .N360Blocks-hide {
     display: none;
   }
+
+  &__section-video {
+    position: absolute;
+    inset: 0;
+  }
 }
 
 $ratios: (
