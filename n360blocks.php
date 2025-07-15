@@ -3,8 +3,8 @@
  * Plugin Name:       N360Blocks
  * Plugin URI:        https://newsn360.com/n360blocks
  * Description:       A powerful WordPress plugin offering customizable video blocks, post grids, and scalable content layouts for Gutenberg.
- * Version:           1.0.1
- * Contributors:      hasib2130
+ * Version:           1.0.2
+ * Contributors:      hasib2130, grohon
  * Author:            Hasibul Hossain Santo Sheikh
  * Author URI:        https://newsn360.com
  * License:           GPL-2.0+
@@ -36,7 +36,7 @@ final class N360Blocks {
      *
      * @var string
      */
-    const version = '1.0.1';
+    const version = '1.0.2';
 
     /**
      * N360Blocks constructor.

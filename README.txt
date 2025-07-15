@@ -1,12 +1,12 @@
 === N360Blocks ===
-Contributors: hasib2130
+Contributors: hasib2130, grohon
 Donate link: https://newsn360.com/donate
 Tags: blocks, video, youtube, vimeo, custom controls
 Requires at least: 5.8
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.0.1
-Version: 1.0.1
+Stable tag: 1.0.2
+Version: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,6 +72,11 @@ These external services are only called when videos from Vimeo or YouTube are us
 
 == Changelog ==
 
+= 1.0.2 =
+* Fixed a bug with video player with same ID.
+* Enabled Lazy loading video.
+* Fixed video aspect ratio.
+* Added background and text color option.
 = 1.0.1 =
 * Fixed all issues.
 = 1.0.0 =
