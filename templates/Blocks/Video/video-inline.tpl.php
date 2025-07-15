@@ -26,6 +26,9 @@ if ($video_provider === 'youtube' && !empty($video_url)) {
   $video_id = N360BL_VpPosts::extractVimeoId($video_url);
 }
 
+// Enqueue inline video script
+wp_enqueue_script('n360-video-inline');
+
 // Generate a unique container ID for this block instance
 $unique_container_id = $video_id . '-' . ($attributes['block_id'] ?? uniqid());
 
@@ -37,52 +40,19 @@ $wrapper_attributes = get_block_wrapper_attributes(['class' => $block_class, 'id
     <div class="N360Blocks__frame">
       <?php if (!empty($video_id) && !empty($video_provider)) : ?>
         <div class="section--video video-item <?php echo esc_attr("video-provider-".$video_provider . ' '. $aspect_ratio); ?>">
-          <div id="<?php echo esc_attr($unique_container_id); ?>"></div>
+          <div id="<?php echo esc_attr($unique_container_id . '-inline_' . $video_id); ?>"></div>
 
           <?php switch ($video_provider):
             case 'youtube': ?>
               <script>
                 (window.YT_videos = window.YT_videos || []).push({
                   media_id: <?php echo json_encode($video_id); ?>,
-                  container_id: <?php echo json_encode($unique_container_id); ?>
+                  media_type: 'youtube',
+                  autoplay: <?php echo $attributes['autoplay'] ? 1 : 0; ?>,
+                  mute: <?php echo $attributes['autoplay'] ? 1 : 0; ?>,
+                  loop: <?php echo $attributes['loop'] ? 1 : 0; ?>,
+                  block_id: <?php echo json_encode($unique_container_id . '-inline'); ?>
                 });
-
-                if (typeof onYouTubeIframeAPIReady !== 'function') {
-                  function onYouTubeIframeAPIReady() {
-                    let playerVars = {
-                      'playsinline': 1,
-                      'autoplay': <?php echo $attributes['autoplay'] ? '1' : '0'; ?>,
-                      'loop': <?php echo $attributes['loop'] ? '1' : '0'; ?>,
-                      'controls': <?php echo $attributes['controls'] ? '1' : '0'; ?>,
-                      'mute': <?php echo $attributes['autoplay'] ? '1' : '0'; ?>
-                    };
-
-                    window.YT_videos?.forEach(function(item) {
-                      new YT.Player(item.container_id, {
-                        videoId: item.media_id,
-                        playerVars: playerVars,
-                        events: {
-                          'onReady': onPlayerReady,
-                          'onStateChange': onPlayerStateChange
-                        }
-                      });
-                    });
-                  }
-                }
-
-                if (typeof onPlayerReady !== 'function') {
-                  function onPlayerReady(event) {
-                    // Optional: handle ready state
-                  }
-                }
-
-                if (typeof onPlayerStateChange !== 'function') {
-                  function onPlayerStateChange(event) {
-                    if (event.data === YT.PlayerState.PAUSED) {
-                      // Optional: handle pause
-                    }
-                  }
-                }
               </script>
             <?php break;
 
@@ -103,7 +73,7 @@ $wrapper_attributes = get_block_wrapper_attributes(['class' => $block_class, 'id
                   })(startTime);
                 }).then(function() {
                   let media_id = '<?php echo esc_js($video_id); ?>';
-                  let container_id = '<?php echo esc_js($unique_container_id); ?>';
+                  let container_id = '<?php echo esc_js($unique_container_id . '-inline_' . $video_id); ?>';
                   let vimeoOptions = {
                     id: media_id,
                     autoplay: <?php echo $attributes['autoplay'] ? 'true' : 'false'; ?>,
