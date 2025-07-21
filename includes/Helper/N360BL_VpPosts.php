@@ -27,6 +27,22 @@ class N360BL_VpPosts {
     ];
   }
 
+  public static function jwplayerExtractMediaAndPlayerId($url) {
+    $mediaId = null;
+    $playerId = null;
+
+    // Match pattern: /players/{mediaId}-{playerId}.html
+    if (preg_match('#/players/([a-zA-Z0-9]+)-([a-zA-Z0-9]+)\.html#', $url, $matches)) {
+      $mediaId = $matches[1];
+      $playerId = $matches[2];
+    }
+
+    return [
+      'mediaId' => $mediaId,
+      'playerId' => $playerId,
+    ];
+  }
+
   public static function extractVimeoId($url) {
     if (preg_match('/vimeo\.com\/(?:video\/)?(\d+)/', $url, $matches)) {
         return $matches[1];
@@ -56,5 +72,14 @@ class N360BL_VpPosts {
     $data = json_decode($body, true);
 
     return isset($data['thumbnail_url']) ? $data['thumbnail_url'] : false;
+  }
+
+  public static function getJwplayerThumbnail($media_id) {
+    if (empty($media_id)) {
+      return false;
+    }
+
+    // 720px preview image is standard; you can also use -640 or -1200
+    return "https://cdn.jwplayer.com/thumbs/{$media_id}-720.jpg";
   }
 }

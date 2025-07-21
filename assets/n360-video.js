@@ -8,23 +8,26 @@
       let videoId       = $(this).data('video-id').toString();
       let videoProvider = $(this).data('video-provider');
       let playlistId    = $(this).data('playlist-id');
+      let playerId      = $(this).data('player-id'); // Required for JW Player
 
       const inline_video = $(`#N360Blocks-video-inline-${blockId}-${videoId}`);
-
 
       if (inline_video.length) {
         inline_video.show();
 
-        if (videoProvider === 'youtube' || videoProvider === 'vimeo') {
+        if (videoProvider === 'youtube' || videoProvider === 'vimeo' || videoProvider === 'jwplayer') {
           inline_video.empty();
 
           if (videoProvider === 'youtube') {
             initializeYouTubePlayer({ videoId, playlistId }, inline_video, $(this));
           } else if (videoProvider === 'vimeo') {
             initializeVimeoPlayer(videoId, inline_video, $(this));
+          } else if (videoProvider === 'jwplayer') {
+            initializeJWPPlayer(videoId, playerId, inline_video, $(this));
           }
         }
       }
+
       $(this).find('.N360Blocks__play-icon').hide();
     });
 
@@ -36,8 +39,6 @@
       return;
     }
 
-    console.log('Initializing YouTube player with videoId:', videoId, 'and playlistId:', playlistId);
-
     if (videoContainer.hasClass('yt-initialized')) return;
     videoContainer.addClass('yt-initialized');
 
@@ -48,14 +49,12 @@
       playsinline: 1
     };
 
-    // If playlistId is provided, set playlist options
     if (playlistId) {
       playerVars.listType = 'playlist';
       playerVars.list = playlistId;
     }
 
-    const playerInstance = new YT.Player(videoContainer[0], {
-      // Always pass videoId — YouTube needs it even for playlists
+    new YT.Player(videoContainer[0], {
       videoId: videoId,
       playerVars,
       events: {
@@ -66,7 +65,6 @@
       }
     });
   }
-
 
   let vimeoPlayer = null;
   function initializeVimeoPlayer(videoId, videoContainer, currentLink) {
@@ -88,7 +86,49 @@
       vimeoPlayer.on('loaded', function () {
         currentLink.find('.N360Blocks__loading').hide();
       });
+    }
+  }
 
+  function initializeJWPPlayer(mediaId, playerId, videoContainer, currentLink) {
+    if (!mediaId || !playerId) {
+      console.error("JW Player media ID or player ID missing.");
+      return;
+    }
+
+    const containerId = `jwplayer-${mediaId}-${playerId}`;
+
+    // Prevent re-initialization
+    if (videoContainer.hasClass('jwplayer-initialized')) return;
+    videoContainer.addClass('jwplayer-initialized');
+
+    currentLink.find('.N360Blocks__loading').show();
+
+    // Set container ID and append it
+    videoContainer.attr('id', containerId);
+
+    function loadAndInitJWP() {
+      jwplayer(containerId).setup({
+        file: `https://cdn.jwplayer.com/videos/${mediaId}.mp4`,
+        image: `https://cdn.jwplayer.com/thumbs/${mediaId}-720.jpg`,
+        autostart: true,
+        mute: true,
+        controls: true,
+        width: "100%",
+        aspectratio: "16:9",
+      });
+
+      jwplayer(containerId).on('ready', function () {
+        currentLink.find('.N360Blocks__loading').hide();
+      });
+    }
+
+    if (typeof jwplayer === 'undefined') {
+      const jwScript = document.createElement('script');
+      jwScript.src = `https://cdn.jwplayer.com/libraries/${playerId}.js`;
+      jwScript.onload = loadAndInitJWP;
+      document.head.appendChild(jwScript);
+    } else {
+      loadAndInitJWP();
     }
   }
 

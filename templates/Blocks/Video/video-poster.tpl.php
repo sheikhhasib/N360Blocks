@@ -9,21 +9,28 @@ $id = 'n360blocks-video-' . ($attributes['block_id'] ?? uniqid());
 $video_id          = '';
 $video_playlist_id = '';
 $video_thumbnail   = '';
+$jwp_player_id     = '';
 
 $video_url      = $attributes['video_url'] ?? '';
 $video_provider = $attributes['video_provider'] ?? '';
 $aspect_ratio   = $attributes['ratio'] ?? 'ratio-16-9';
 $template       = '';
 
-if ($video_provider === 'youtube' && !empty($video_url)) {
+if ($video_provider === 'youtube' && !empty($video_url)) { // YouTube
   $video_data        = N360BL_VpPosts::youtubeExtractVideoAndPlaylistId($video_url);
   $video_id          = $video_data['videoId'] ?? '';
   $video_playlist_id = $video_data['playlistId'] ?? '';
   $video_thumbnail   = N360BL_VpPosts::getYouTubeThumbnail($video_id, 'maxresdefault');
-} elseif ($video_provider === 'vimeo' && !empty($video_url)) {
+} elseif ($video_provider === 'vimeo' && !empty($video_url)) { // Vimeo
   $video_id = N360BL_VpPosts::extractVimeoId($video_url);
   $video_thumbnail = N360BL_VpPosts::getVimeoThumbnail($video_id);
+} elseif ($video_provider === 'jwplayer' && !empty($video_url)) { // JWP
+  $video_data      = N360BL_VpPosts::jwplayerExtractMediaAndPlayerId($video_url);
+  $video_id        = $video_data['mediaId'] ?? '';
+  $jwp_player_id   = $video_data['playerId'] ?? '';
+  $video_thumbnail = N360BL_VpPosts::getJwplayerThumbnail($video_id);
 }
+
 
 $unique_id = $attributes['block_id'] ?? uniqid();
 
@@ -42,7 +49,7 @@ $wrapper_attributes = get_block_wrapper_attributes(['class' => $block_class, 'id
 <div <?php echo $wrapper_attributes; ?>>
   <div class="N360Blocks__container">
     <div class="N360Blocks__frame <?php echo esc_html($aspect_ratio); ?>">
-      <a href="#" class="N360Blocks__link" <?php echo esc_html($link_attributes); ?>>
+      <a href="#" class="N360Blocks__link" data-player-id="<?php echo $jwp_player_id; ?>" <?php echo esc_html($link_attributes); ?>>
         <svg class="N360Blocks__play-icon" width="48" height="48" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="39" cy="39" r="38" stroke="#ffffff" stroke-width="2" fill="rgba(0, 0, 0, 0.6)" />
           <polygon points="33,28 53,39 33,50" fill="#ffffff" />

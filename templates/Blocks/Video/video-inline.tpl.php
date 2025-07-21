@@ -13,17 +13,22 @@ if (!empty($block['anchor'])) {
 $video_id          = '';
 $video_playlist_id = '';
 $video_thumbnail   = '';
+$jwp_player_id     = '';
 
 $video_url      = $attributes['video_url'] ?? '';
 $video_provider = $attributes['video_provider'] ?? '';
 $aspect_ratio   = $attributes['ratio'] ?? 'ratio-16-9';
 
-if ($video_provider === 'youtube' && !empty($video_url)) {
+if ($video_provider === 'youtube' && !empty($video_url)) { // YouTube
   $video_data        = N360BL_VpPosts::youtubeExtractVideoAndPlaylistId($video_url);
   $video_id          = $video_data['videoId'] ?? '';
   $video_playlist_id = $video_data['playlistId'] ?? '';
-} elseif ($video_provider === 'vimeo' && !empty($video_url)) {
+} elseif ($video_provider === 'vimeo' && !empty($video_url)) { // Vimeo
   $video_id = N360BL_VpPosts::extractVimeoId($video_url);
+} elseif ($video_provider === 'jwplayer' && !empty($video_url)) { // JWP
+  $video_data    = N360BL_VpPosts::jwplayerExtractMediaAndPlayerId($video_url);
+  $video_id      = $video_data['mediaId'] ?? '';
+  $jwp_player_id = $video_data['playerId'] ?? '';
 }
 
 // Enqueue inline video script
@@ -32,7 +37,7 @@ wp_enqueue_script('n360-video-inline');
 // Generate a unique container ID for this block instance
 $unique_container_id = $video_id . '-' . ($attributes['block_id'] ?? uniqid());
 
-$block_class = 'N360Blocks n360blocks-video n360blocks-video__inline';
+$block_class        = 'N360Blocks n360blocks-video n360blocks-video__inline';
 $wrapper_attributes = get_block_wrapper_attributes(['class' => $block_class, 'id' => $id]);
 ?>
 <div <?php echo $wrapper_attributes; ?>>
@@ -95,6 +100,41 @@ $wrapper_attributes = get_block_wrapper_attributes(['class' => $block_class, 'id
                 });
               </script>
           <?php break;
+
+          case 'jwplayer': ?>
+            <script>
+              (function() {
+                var playerId = <?php echo json_encode($jwp_player_id); ?>;
+                var mediaId = <?php echo json_encode($video_id); ?>;
+                var containerId = <?php echo json_encode($unique_container_id . '-inline_' . $video_id); ?>;
+
+                // Load the JWP script if not already loaded
+                if (typeof window.jwplayer === 'undefined') {
+                  var jwScript = document.createElement('script');
+                  jwScript.src = 'https://cdn.jwplayer.com/libraries/' + playerId + '.js';
+                  jwScript.async = true;
+                  jwScript.onload = initJWP;
+                  document.head.appendChild(jwScript);
+                } else {
+                  initJWP();
+                }
+
+                function initJWP() {
+                  jwplayer(containerId).setup({
+                    file: "https://cdn.jwplayer.com/videos/" + mediaId + ".mp4",
+                    image: "https://cdn.jwplayer.com/thumbs/" + mediaId + "-720.jpg",
+                    autostart: <?php echo $attributes['autoplay'] ? 'true' : 'false'; ?>,
+                    mute: <?php echo $attributes['autoplay'] ? 'true' : 'false'; ?>,
+                    repeat: <?php echo $attributes['loop'] ? 'true' : 'false'; ?>,
+                    controls: <?php echo $attributes['controls'] ? 'true' : 'false'; ?>,
+                    width: "100%",
+                    aspectratio: "16:9"
+                  });
+                }
+              })();
+            </script>
+          <?php break;
+
           endswitch; ?>
         </div>
       <?php endif; ?>
