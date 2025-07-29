@@ -6,7 +6,7 @@
   "title": "N360Blocks - Video",
   "category": "vp-category",
   "icon": "format-video",
-  "description": "Supports embedding YouTube and Vimeo videos.",
+  "description": "Supports embedding YouTube, Vimeo & JWP videos.",
   "supports": {
     "html": false,
     "color": {

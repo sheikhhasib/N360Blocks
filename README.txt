@@ -5,8 +5,8 @@ Tags: blocks, video, youtube, vimeo, custom controls
 Requires at least: 5.8
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.0.2
-Version: 1.0.2
+Stable tag: 1.0.3
+Version: 1.0.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,6 +72,9 @@ These external services are only called when videos from Vimeo or YouTube are us
 
 == Changelog ==
 
+= 1.0.3 =
+* Enable JWP player
+* URL pattern:https://cdn.jwplayer.com/players/[media_id]-[player_id].html
 = 1.0.2 =
 * Fixed a bug with video player with same ID.
 * Enabled Lazy loading video.

@@ -95,6 +95,15 @@ No personal data is sent from your site by default, but video platforms may trac
 
 ## 🗒️ Changelog
 
+### 1.0.3
+- Enable JWP player
+- URL pattern:https://cdn.jwplayer.com/players/[media_id]-[player_id].html
+
+### 1.0.2
+- Fixed a bug with video player with same ID.
+- Enabled Lazy loading video.
+- Fixed video aspect ratio.
+
 ### 1.0.1
 - Fixed all issues
 
