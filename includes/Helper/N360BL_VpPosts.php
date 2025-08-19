@@ -32,7 +32,7 @@ class N360BL_VpPosts {
     $playerId = null;
 
     // Match pattern: /players/{mediaId}-{playerId}.html
-    if (preg_match('#/players/([a-zA-Z0-9]+)-([a-zA-Z0-9]+)\.html#', $url, $matches)) {
+    if (preg_match('#/players/([a-zA-Z0-9]+)-([a-zA-Z0-9]+)\.(html|js)#', $url, $matches)) {
       $mediaId = $matches[1];
       $playerId = $matches[2];
     }
